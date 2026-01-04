@@ -87,10 +87,21 @@
                 0 0 0 4px #1e293b, 
                 0 0 0 6px #000, 
                 0 0 60px rgba(0, 243, 255, 0.15);
-            /* FIX: Esto asegura que el contenido (video) respete los bordes redondeados en todos los navegadores */
+            /* Máscara para recortar esquinas perfectamente */
             -webkit-mask-image: -webkit-radial-gradient(white, black);
             mask-image: radial-gradient(white, black);
-            transform: translateZ(0); /* Fuerza renderizado GPU para bordes más limpios */
+            transform: translateZ(0);
+        }
+
+        /* Fuerza el llenado del video */
+        .video-full {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover !important; /* Importante para asegurar el recorte */
+            z-index: 0;
         }
 
         /* Lightbox */
@@ -98,10 +109,10 @@
         .lightbox-hidden { opacity: 0; pointer-events: none; visibility: hidden; }
         .lightbox-visible { opacity: 1; pointer-events: auto; visibility: visible; }
         
-        /* Estilos botón neón actualizados */
+        /* Estilos botón neón */
         .neon-btn {
-            background: rgba(0, 243, 255, 0.05); /* Fondo muy sutil azul claro */
-            color: #00f3ff; /* Texto neón claro */
+            background: rgba(0, 243, 255, 0.05);
+            color: #00f3ff;
             border-color: rgba(0, 243, 255, 0.4);
             transition: all 0.2s ease;
         }
@@ -114,13 +125,12 @@
             transform: scale(1.05);
         }
 
-        /* Estado Click: Azul más fuerte/profundo */
         .neon-btn:active {
-            background: rgba(0, 110, 255, 0.25); /* Fondo azul más intenso */
-            color: #2288ff; /* Texto azul fuerte */
-            border-color: #0066ff; /* Borde azul fuerte */
-            box-shadow: 0 0 10px rgba(0, 80, 255, 0.6) inset; /* Brillo interior */
-            transform: scale(0.95); /* Efecto de pulsación */
+            background: rgba(0, 110, 255, 0.25);
+            color: #2288ff;
+            border-color: #0066ff;
+            box-shadow: 0 0 10px rgba(0, 80, 255, 0.6) inset;
+            transform: scale(0.95);
             text-shadow: 0 0 5px rgba(0, 80, 255, 1);
         }
     </style>
@@ -133,10 +143,7 @@
             KRONO V1.0
         </h1>
         
-        <!-- Contenedor de Botones y Texto - SIEMPRE EN FILA (flex-row) -->
         <div class="flex flex-row items-center justify-center gap-2 md:gap-8 w-full max-w-6xl">
-            
-            <!-- Botón Izquierda -->
             <a href="https://slotcarhome-star.github.io/KronoPersonal/" target="_blank" class="neon-btn px-2 py-1.5 md:px-6 md:py-2 rounded-lg md:rounded-xl border border-neon/30 text-[8px] md:text-xs font-krono tracking-widest whitespace-nowrap">
                 KronoPersonal V.1.0
             </a>
@@ -145,55 +152,49 @@
                 by Albert Closa
             </p>
 
-            <!-- Botón Derecha -->
             <a href="https://slotcarhome-star.github.io/KronoPersonal/" target="_blank" class="neon-btn px-2 py-1.5 md:px-6 md:py-2 rounded-lg md:rounded-xl border border-neon/30 text-[8px] md:text-xs font-krono tracking-widest whitespace-nowrap">
                 KronoPersonal V.1.0
             </a>
-            
         </div>
     </header>
 
     <!-- CONTENEDOR PRINCIPAL -->
     <main class="flex-grow w-full max-w-[1600px] mx-auto p-4 md:p-8 flex flex-col gap-12 items-center">
         
-        <!-- 1. FILA SUPERIOR: 4 IMÁGENES -->
+        <!-- 1. FILA SUPERIOR -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 w-full">
-            <!-- Captura 1 -->
             <div class="glass-panel rounded-xl aspect-[9/16] group" onclick="openLightbox('img1')">
                 <img id="img1" src="captura1.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/1080x1920/000/0ff?text=IMG+01'">
                 <div class="absolute bottom-0 w-full bg-black/70 p-1 text-center text-[9px] text-neon opacity-0 group-hover:opacity-100 transition-opacity font-krono tracking-widest">VER</div>
             </div>
-            <!-- Captura 2 -->
             <div class="glass-panel rounded-xl aspect-[9/16] group" onclick="openLightbox('img2')">
                 <img id="img2" src="captura2.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/1080x1920/000/0ff?text=IMG+02'">
                 <div class="absolute bottom-0 w-full bg-black/70 p-1 text-center text-[9px] text-neon opacity-0 group-hover:opacity-100 transition-opacity font-krono tracking-widest">VER</div>
             </div>
-            <!-- Captura 3 -->
             <div class="glass-panel rounded-xl aspect-[9/16] group" onclick="openLightbox('img3')">
                 <img id="img3" src="captura3.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/1080x1920/000/0ff?text=IMG+03'">
                 <div class="absolute bottom-0 w-full bg-black/70 p-1 text-center text-[9px] text-neon opacity-0 group-hover:opacity-100 transition-opacity font-krono tracking-widest">VER</div>
             </div>
-            <!-- Captura 4 -->
             <div class="glass-panel rounded-xl aspect-[9/16] group" onclick="openLightbox('img4')">
                 <img id="img4" src="captura4.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/1080x1920/000/0ff?text=IMG+04'">
                 <div class="absolute bottom-0 w-full bg-black/70 p-1 text-center text-[9px] text-neon opacity-0 group-hover:opacity-100 transition-opacity font-krono tracking-widest">VER</div>
             </div>
         </div>
 
-        <!-- 2. FILA CENTRAL: 2 VIDEOS (Con Fix de Recorte) -->
+        <!-- 2. FILA CENTRAL: 2 VIDEOS (Actualizado con absolute positioning) -->
         <div class="w-full flex flex-col md:flex-row justify-center gap-8 md:gap-16 items-center my-4 relative">
             
-            <!-- Glow Efecto Suelo General -->
             <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-4 bg-neon/10 blur-2xl rounded-full"></div>
 
             <!-- VIDEO 1 (Izquierda) -->
             <div class="relative w-full max-w-[320px] md:max-w-[360px] aspect-[9/16] animate-float z-10">
                 <div class="w-full h-full bg-black rounded-[2.5rem] overflow-hidden phone-mockup relative border-2 border-slate-800">
-                    <video id="mainVideo" class="w-full h-full object-cover" loop playsinline>
+                    <!-- Video con clase video-full (absolute) -->
+                    <video id="mainVideo" class="video-full" loop playsinline>
                         <source src="mivideo.mp4" type="video/mp4">
                     </video>
-                    <!-- Overlay Play 1 -->
-                    <div id="playOverlay1" class="absolute inset-0 bg-black/30 flex items-center justify-center cursor-pointer group" onclick="togglePlay('mainVideo', 'playOverlay1')">
+                    <!-- Overlay Play 1 (z-index superior) -->
+                    <div id="playOverlay1" class="absolute inset-0 bg-black/30 flex items-center justify-center cursor-pointer group z-20" onclick="togglePlay('mainVideo', 'playOverlay1')">
                         <div class="w-16 h-16 rounded-full border-2 border-cyan-400/50 bg-black/50 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_30px_rgba(0,243,255,0.4)]">
                             <i data-lucide="play" class="w-6 h-6 text-white ml-1"></i>
                         </div>
@@ -204,11 +205,12 @@
             <!-- VIDEO 2 (Derecha) -->
             <div class="relative w-full max-w-[320px] md:max-w-[360px] aspect-[9/16] animate-float-delayed z-10">
                 <div class="w-full h-full bg-black rounded-[2.5rem] overflow-hidden phone-mockup relative border-2 border-slate-800 shadow-[0_0_60px_rgba(255,0,85,0.15)]">
-                    <video id="video2" class="w-full h-full object-cover" loop playsinline>
+                    <!-- Video con clase video-full (absolute) -->
+                    <video id="video2" class="video-full" loop playsinline>
                         <source src="mivideo2.mp4" type="video/mp4">
                     </video>
-                    <!-- Overlay Play 2 -->
-                    <div id="playOverlay2" class="absolute inset-0 bg-black/30 flex items-center justify-center cursor-pointer group" onclick="togglePlay('video2', 'playOverlay2')">
+                    <!-- Overlay Play 2 (z-index superior) -->
+                    <div id="playOverlay2" class="absolute inset-0 bg-black/30 flex items-center justify-center cursor-pointer group z-20" onclick="togglePlay('video2', 'playOverlay2')">
                         <div class="w-16 h-16 rounded-full border-2 border-rose-500/50 bg-black/50 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_30px_rgba(255,0,85,0.4)]">
                             <i data-lucide="play" class="w-6 h-6 text-white ml-1"></i>
                         </div>
@@ -217,24 +219,20 @@
             </div>
         </div>
 
-        <!-- 3. FILA INFERIOR: 4 IMÁGENES -->
+        <!-- 3. FILA INFERIOR -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 w-full">
-            <!-- Captura 5 -->
             <div class="glass-panel rounded-xl aspect-[9/16] group" onclick="openLightbox('img5')">
                 <img id="img5" src="captura5.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/1080x1920/000/0ff?text=IMG+05'">
                 <div class="absolute bottom-0 w-full bg-black/70 p-1 text-center text-[9px] text-neon opacity-0 group-hover:opacity-100 transition-opacity font-krono tracking-widest">VER</div>
             </div>
-            <!-- Captura 6 -->
             <div class="glass-panel rounded-xl aspect-[9/16] group" onclick="openLightbox('img6')">
                 <img id="img6" src="captura6.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/1080x1920/000/0ff?text=IMG+06'">
                 <div class="absolute bottom-0 w-full bg-black/70 p-1 text-center text-[9px] text-neon opacity-0 group-hover:opacity-100 transition-opacity font-krono tracking-widest">VER</div>
             </div>
-            <!-- Captura 7 -->
             <div class="glass-panel rounded-xl aspect-[9/16] group" onclick="openLightbox('img7')">
                 <img id="img7" src="captura7.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/1080x1920/000/0ff?text=IMG+07'">
                 <div class="absolute bottom-0 w-full bg-black/70 p-1 text-center text-[9px] text-neon opacity-0 group-hover:opacity-100 transition-opacity font-krono tracking-widest">VER</div>
             </div>
-            <!-- Captura 8 -->
             <div class="glass-panel rounded-xl aspect-[9/16] group" onclick="openLightbox('img8')">
                 <img id="img8" src="captura8.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onerror="this.src='https://placehold.co/1080x1920/000/0ff?text=IMG+08'">
                 <div class="absolute bottom-0 w-full bg-black/70 p-1 text-center text-[9px] text-neon opacity-0 group-hover:opacity-100 transition-opacity font-krono tracking-widest">VER</div>
@@ -243,7 +241,7 @@
 
     </main>
 
-    <!-- LIGHTBOX (VISOR) -->
+    <!-- LIGHTBOX -->
     <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center lightbox-hidden backdrop-blur-xl" onclick="closeLightbox()">
         <button class="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-full transition z-50">
             <i data-lucide="x" class="w-8 h-8"></i>
@@ -251,7 +249,7 @@
         <img id="lightbox-img" src="" class="max-h-[90vh] max-w-[90vw] h-auto w-auto rounded-lg shadow-[0_0_60px_rgba(0,243,255,0.2)] border border-neon/30 object-contain" onclick="event.stopPropagation()">
     </div>
 
-    <!-- Input Oculto: Acepta PNG, JPG, JPEG explícitamente -->
+    <!-- Input Oculto -->
     <input type="file" id="manualInput" accept="video/*,.png,.jpg,.jpeg,image/png,image/jpeg,image/jpg" multiple class="hidden">
 
     <script>
@@ -309,7 +307,7 @@
             }
         });
         
-        // Carga Automática si se suben archivos
+        // Carga Automática
         document.getElementById('manualInput').addEventListener('change', (e) => {
             Array.from(e.target.files).forEach(file => {
                 const url = URL.createObjectURL(file);
